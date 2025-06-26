@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/auth/**
+        - id: canteen-service
+          uri: lb://canteen-service
+          predicates:
+            - Path=/canteen/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-registry:8761/eureka

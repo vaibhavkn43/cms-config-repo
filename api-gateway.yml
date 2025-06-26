@@ -1,4 +1,52 @@
 spring:
+  application:
+    name: api-gateway
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: default
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+        - id: canteen-service
+          uri: lb://CANTEEN-SERVICE
+          predicates:
+            - Path=/api/items/**
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-registry:8761/eureka
+
+
+spring:
   cloud:
     gateway:
       routes:
@@ -11,7 +59,4 @@ spring:
           predicates:
             - Path=/canteen/**
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://service-registry:8761/eureka
+

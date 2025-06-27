@@ -21,6 +21,11 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+jwt:
+  secret: myLocalSecretKey123
+  expiration: 3600000 # 1 hour in milliseconds
+      
+      
 ---
 spring:
   config:
@@ -40,3 +45,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://service-registry:8761/eureka
+jwt:
+  secret: myDockerSecretKey123
+  expiration: 3600000 # 1 hour in milliseconds
+      
